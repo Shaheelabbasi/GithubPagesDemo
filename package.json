@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d dist",
      "test": "echo \"No tests defined\"",
     "build": "vite build",
     "lint": "eslint .",
