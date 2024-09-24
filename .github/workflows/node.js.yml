@@ -21,12 +21,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    
+
     - run: npm ci
     - run: npm run build --if-present  # Ensure the build step creates the dist folder
     - run: npm test
@@ -40,3 +41,15 @@ jobs:
         npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push Docker image to Docker Hub
+      if: success()  # Run only if the build is successful
+      steps:
+        - name: Log in to Docker Hub
+          run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+        - name: Build Docker image
+          run: docker build -t shaheel456/reactjsdemo:latest .
+
+        - name: Push Docker image to Docker Hub
+          run: docker push shaheel456/reactjsdemo:latest
