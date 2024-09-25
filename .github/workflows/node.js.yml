@@ -36,7 +36,7 @@ jobs:
 
     - name: Verify Metrics Endpoint
       run: |
-        curl -f http://127.0.0.1:8000/metrics
+        curl -fhttp://localhost:8000/metrics
   # Adjust the URL if necessary
 
     - name: Deploy with gh-pages
