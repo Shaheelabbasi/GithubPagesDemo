@@ -32,6 +32,10 @@ jobs:
     - run: npm run build --if-present  # Ensure the build step creates the dist folder
     - run: npm test
 
+    - name: Verify Metrics Endpoint
+      run: |
+        curl -f http://localhost:8000/metrics  # Adjust the URL if necessary
+
     - name: Deploy with gh-pages
       if: success()  # Ensure the deploy step runs only if previous steps succeed
       run: |
