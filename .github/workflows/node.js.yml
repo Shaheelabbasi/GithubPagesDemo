@@ -33,10 +33,11 @@ jobs:
     - run: npm test
     - name: Start Application
       run: npm run dev > app.log 2>&1 &
-      
+
     - name: Verify Metrics Endpoint
       run: |
-        curl -f http://localhost:8000/metrics  # Adjust the URL if necessary
+        curl -f http://127.0.0.1:8000/metrics
+  # Adjust the URL if necessary
 
     - name: Deploy with gh-pages
       if: success()  # Ensure the deploy step runs only if previous steps succeed
