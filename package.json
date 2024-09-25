@@ -1,18 +1,19 @@
 {
   "name": "test",
   "private": true,
-  "homepage":"https://Shaheelabbasi.github.io/test",
+  "homepage": "https://Shaheelabbasi.github.io/test",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "deploy": "gh-pages -d dist",
-     "test": "echo \"No tests defined\"",
+    "test": "echo \"No tests defined\"",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "node-fetch": "^3.3.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
