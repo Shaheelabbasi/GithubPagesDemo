@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector ,useDispatch} from 'react-redux';
+import {logout} from '../Store/Feature/authslice.js'
 const Navbar = () => {
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
     const dispatch=useDispatch()
@@ -20,7 +21,10 @@ const Navbar = () => {
                 <div>
                     {
                         isAuthenticated ? (
-                            <Link to="/" className="bg-whitepx-4 py-2 rounded">
+                            <Link to="/" className="bg-whitepx-4 py-2 rounded"
+                            onClick={()=>dispatch(logout())}
+                            
+                            >
                                 Logout
                             </Link>
                         ) : (
