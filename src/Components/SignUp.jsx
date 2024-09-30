@@ -19,7 +19,7 @@ const SignUp = () => {
     const HandleSubmit=async(e)=>{
         e.preventDefault()
         try {
-          const response= await axios.post("http://localhost:8000/signup",Signupform)
+          const response= await axios.post("http://localhost:8000/auth/login",Signupform)
           console.log("The response is ",response.data)
         } catch (error) {
           // const{response}=error
