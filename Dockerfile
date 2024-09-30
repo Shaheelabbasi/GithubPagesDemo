@@ -16,5 +16,6 @@ COPY . .
 # Expose port 3000 (or whatever port your app uses)
 EXPOSE 5173
 
-# Define the command to run the app
-CMD ["run dev"]
+
+# Install dependencies
+RUN npm run dev
