@@ -1,10 +1,15 @@
 
 const express=require("express")
-const {fetchFakeProducts}=require("../Controllers/product.controller.js")
+const {fetchAllProducts,getCategories,getProductsByCategory}=require("../Controllers/product.controller.js")
 const productRouter=express.Router();
 
 
-productRouter.get("/getproducts",fetchFakeProducts)
+productRouter.get("/getallproducts",fetchAllProducts)
+productRouter.get("/getallcategories",getCategories)
+productRouter.get("/getproductsbycategory",getProductsByCategory)
+
+// productRouter.post("/insertproduct",fetchFakeProducts)
+// productRouter.post("/insertmanyproducts",addProducts)
 
 
 

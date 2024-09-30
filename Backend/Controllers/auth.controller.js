@@ -1,9 +1,7 @@
-const { User } = require("../Models/user.model.js");
+const  User  = require("../Models/user.model.js");
 const ApiResponse = require("../Utils/Apiresponse.js");
 const ApiError = require('../Utils/ApiError.js');
 const { asyncHandler } = require("../Utils/asyncHandler.js");
-// const OtpGenerator = require('otp-generator');
-// const { OTP } = require("../Models/otp.model.js");
 
 const SignUp = asyncHandler(async (req, res) => {
   const { username, email, password, role } = req.body;
@@ -36,6 +34,7 @@ const SignUp = asyncHandler(async (req, res) => {
 });
 
 const Login = asyncHandler(async (req, res) => {
+
   const { email, password, username } = req.body;
 
   if (!((email || username) && password)) {
@@ -58,25 +57,21 @@ const Login = asyncHandler(async (req, res) => {
   const AccessToken = existingUser.GenerateAccessToken();
   const safeUser = await User.findById(existingUser._id).select("-password -email");
 
-  const options = {
-    httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000,
-  };
-
-  res.cookie("mycookie", AccessToken, options);
-
+  
   return res.json(
     new ApiResponse(200, { AccessToken, safeUser }, "logged in successfully")
   );
 });
 
 const logout = (req, res) => {
-  const options = {
-    httpOnly: true,
-  };
-  return res.clearCookie("mycookie", options)
-    .status(200)
-    .json(200, "logged out successfully");
+  
+  req.user=null
+  res.json(
+    new ApiResponse(
+      200,
+      "logged out successfully"
+    )
+  )
 };
 
 // const ForgetPassword = asyncHandler(async (req, res) => {

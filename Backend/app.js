@@ -3,9 +3,16 @@ const { authRouter } = require('./Routes/auth.router.js');
 const { productRouter } = require('./Routes/product.router.js');
 const { FileRouter } = require('./Routes/file.router.js');
 const client = require('prom-client');
-
+const path=require("path")
 const app = express();
+const cors=require("cors")
 
+app.use(cors(
+   {
+    origin:'*',
+    methods:["GET","POST","PUT","DELETE"]
+   }
+))
 // Set up Prometheus metrics collection
 const register = new client.Registry();
 
@@ -50,11 +57,11 @@ app.get('/metrics', async (req, res) => {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use("/Public",express.static(path.join(__dirname,'Public')));
 
 // Routers
 app.use('/auth', authRouter);
-app.use('/check', productRouter);
-app.use('/check', FileRouter);
+app.use('/mart', productRouter);
+
 
 module.exports = app;
