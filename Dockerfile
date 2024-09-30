@@ -1,5 +1,5 @@
 # Use an official Node.js image from Docker Hub as a parent image
-FROM node:18
+FROM node:20
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -18,4 +18,4 @@ EXPOSE 5173
 
 
 # Install dependencies
-RUN npm run dev
+CMD ["npm", "run", "dev"]
