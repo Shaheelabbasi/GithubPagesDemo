@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 const SignUp = () => {
 
     const [Signupform, setSignupform] = useState({
@@ -8,6 +9,7 @@ const SignUp = () => {
         email:"",
         password:""
     })
+    const navigate=useNavigate()
     const HandleOnChange=(e)=>{
    const{name,value}=e.target
       setSignupform({
@@ -19,8 +21,14 @@ const SignUp = () => {
     const HandleSubmit=async(e)=>{
         e.preventDefault()
         try {
-          const response= await axios.post("http://localhost:8000/auth/login",Signupform)
-          console.log("The response is ",response.data)
+          const response= await axios.post("http://localhost:8000/auth/signup",Signupform)
+          const {data}=response
+          console.log("data is ",data.data)
+
+          if(data.success)
+          {
+            navigate("/")
+          }
         } catch (error) {
           // const{response}=error
           // const{data}=response

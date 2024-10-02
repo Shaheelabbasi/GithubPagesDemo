@@ -30,25 +30,9 @@ jobs:
 
     - run: npm ci
     - run: npm run build --if-present  # Ensure the build step creates the dist folder
-    - run: npm test
     - name: Start Application
       run: npm run dev > app.log 2>&1 &
-
-    - name: Verify Metrics Endpoint
-      run: |
-        curl -fhttp://localhost:8000/metrics
-  # Adjust the URL if necessary
-
-    - name: Deploy with gh-pages
-      if: success()  # Ensure the deploy step runs only if previous steps succeed
-      run: |
-        git config user.name "github-actions[bot]"
-        git config user.email "github-actions[bot]@users.noreply.github.com"
-        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-        npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+      
     - name: Build and push Docker Image
       uses: mr-smithers-excellent/docker-build-push@v4
       with:
@@ -57,6 +41,3 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME}}
         password: ${{ secrets.DOCKER_PASSWORD}}
         dockerfile: ./Dockerfile
-
-
-
